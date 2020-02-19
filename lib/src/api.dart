@@ -7,6 +7,7 @@ library dart_services.dartservices.v1;
 import 'dart:core' as core;
 import 'dart:async' as async;
 import 'dart:convert' as convert;
+import 'dart:core';
 
 import 'package:_discoveryapis_commons/_discoveryapis_commons.dart' as commons;
 import 'package:http/http.dart' as http;
@@ -18,8 +19,9 @@ const core.String USER_AGENT = 'dart-api-client dartservices/v1';
 
 class DartservicesApi {
   final commons.ApiRequester _requester;
+  final bool useRestWhenAvaliable;
 
-  DartservicesApi(http.Client client,
+  DartservicesApi(http.Client client, this.useRestWhenAvaliable,
       {core.String rootUrl: "/",
       core.String servicePath: "api/dartservices/v1/"})
       : _requester = new commons.ApiRequester(
@@ -150,7 +152,7 @@ class DartservicesApi {
   ///
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
-  async.Future<CompileDDCResponse> compileDDC(CompileRequest request) {
+  async.Future<CompileDDCResponse> compileDDC(CompileRequest request) async {
     var _url = null;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
     var _uploadMedia = null;
@@ -161,7 +163,14 @@ class DartservicesApi {
     if (request != null) {
       _body = convert.json.encode((request).toJson());
     }
-
+    if (useRestWhenAvaliable) {
+      final _result = await http.post(
+        'http://localhost:8000/compileDDC',
+        body: convert.json.encode(request.toJson()),
+      );
+      final data = convert.json.decode(_result.body);
+      return CompileDDCResponse.fromJson(data);
+    }
     _url = 'compileDDC';
 
     var _response = _requester.request(_url, "POST",

@@ -10,7 +10,6 @@ import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart' as io;
 // import 'package:shelf_static/shelf_static.dart';
 
-
 Future<void> main() async {
   final handler = const Pipeline()
       .addMiddleware(createCorsHeadersMiddleware())
@@ -92,6 +91,7 @@ class Router {
       }),
       headers: {
         'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
       },
     );
   }
@@ -127,6 +127,7 @@ class Router {
       }),
       headers: {
         'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
       },
     );
   }
@@ -141,6 +142,7 @@ class Router {
       }),
       headers: {
         'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
       },
     );
   }
@@ -159,6 +161,7 @@ class Router {
       }),
       headers: {
         'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
       },
     );
   }
