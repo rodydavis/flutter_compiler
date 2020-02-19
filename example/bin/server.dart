@@ -10,7 +10,8 @@ Future<void> main() async {
   final handler = const Pipeline()
       .addMiddleware(createCorsHeadersMiddleware())
       .addMiddleware(logRequests())
-      .addHandler(createStaticHandler('build/web', defaultDocument: 'index.html'));
+      .addHandler(
+          createStaticHandler('build/web', defaultDocument: 'index.html'));
 
   final server = await io.serve(handler, 'localhost', 8000)
     ..autoCompress = true;
@@ -22,7 +23,14 @@ Future<void> main() async {
 /// to shelf responses. Also handles preflight (OPTIONS) requests.
 Middleware createCorsHeadersMiddleware({Map<String, String> corsHeaders}) {
   // By default allow access from everywhere.
-  corsHeaders ??= <String, String>{'Access-Control-Allow-Origin': '*'};
+  corsHeaders ??= <String, String>{
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Headers':
+        'Origin, Content-Type, Cookie, X-CSRF-TOKEN, Accept, Authorization, X-XSRF-TOKEN, Access-Control-Allow-Origin',
+    'Access-Control-Expose-Headers': 'Authorization, authenticated',
+    'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, OPTIONS',
+    'Access-Control-Allow-Credentials': 'true',
+  };
 
   // Handle preflight (OPTIONS) requests by just adding headers and an empty
   // response.

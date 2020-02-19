@@ -4,6 +4,7 @@ A flutter compiler based on dart pad
 
 ## Getting Started
 
+- Disable CORS
 - Run bin/server.dart
 
 ```
