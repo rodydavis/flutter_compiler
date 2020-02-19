@@ -6,3 +6,4 @@ export 'src/dartservices.dart';
 export 'src/utils.dart';
 export 'src/preview.dart';
 export 'src/gists/gists.dart';
+export 'src/dart_format.dart';

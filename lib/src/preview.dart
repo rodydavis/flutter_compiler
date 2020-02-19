@@ -3,6 +3,7 @@ import 'dart:ui' as ui;
 import 'dart:html' as html;
 import 'package:http/http.dart' as http;
 
+import 'dart_services.dart';
 import 'dartservices.dart';
 import 'iframe/execution_iframe.dart';
 import 'utils.dart';
@@ -22,32 +23,19 @@ class FlutterWebPreview extends StatefulWidget {
 }
 
 class _FlutterWebPreviewState extends State<FlutterWebPreview> {
-  DartservicesApi get dartServices => DartservicesApi(
-        http.Client(),
-        rootUrl: "https://dart-services.appspot.com/",
-      );
+ 
   ExecutionService executionSvc;
   var _iframe = html.IFrameElement();
 
   Future<CompileDDCResponse> _loadJsCode(String fullCode) {
     var input = CompileRequest()..source = fullCode;
-    // print('Input: $fullCode');
     return dartServices
         .compileDDC(input)
         .timeout(longServiceCallTimeout)
         .then((CompileDDCResponse response) {
-      // String _url = response?.modulesBaseUrl;
-      // service.execute(
-      //   '',
-      //   '',
-      //   response.result,
-      //   modulesBaseUrl: null,
-      // );
       print('execution -> ddc-compile-success');
       return response;
     }).catchError((e, st) {
-      // consoleExpandController.showOutput('Error compiling to JavaScript:\n$e',
-      //     error: true);
       print('Error: $e -> $st');
       print('execution -> ddc-compile-failure');
       return "";
@@ -56,48 +44,36 @@ class _FlutterWebPreviewState extends State<FlutterWebPreview> {
 
   bool _loaded = false;
   String _id = 'preview';
+
   @override
   void initState() {
+    // ignore: undefined_prefixed_name
+    ui.platformViewRegistry.registerViewFactory(_id, (int viewId) {
+      final element = _iframe
+        ..style.border = 'none'
+        ..src = 'scripts/frame.html'
+        ..setAttribute("sandbox", "allow-scripts")
+        ..setAttribute('flex', 'auto')
+        ..height = widget.height.toInt().toString()
+        ..width = widget.width.toInt().toString();
+      _iframe = element;
+      return element;
+    });
+    refresh();
+    super.initState();
+  }
+
+  @override
+  void didUpdateWidget(FlutterWebPreview oldWidget) {
+    if (oldWidget.fullCode != widget.fullCode) {
+      if (mounted) setState(() => refresh(true));
+    }
+    super.didUpdateWidget(oldWidget);
+  }
+
+  void refresh([bool update = false]) {
     executionSvc = ExecutionServiceIFrame(_iframe);
-    // _iframe.src = 'javascript:void(0);';
-    // _iframe.setInnerHtml(output);
-
-    // final isDarkMode = Theme.of(context).brightness == Brightness.dark;
-    // executionSvc = ExecutionServiceIFrame(_iframe)
-    //   ..frameSrc =
-    //       isDarkMode ? '../scripts/frame_dark.html' : '../scripts/frame.html';
-    _loadJsCode(widget.fullCode).then((response) {
-      // print('Output: $output');
-      // final _js = ExecutionServiceIFrame.decorateJavaScript(response.result,
-      //     modulesBaseUrl: response.modulesBaseUrl);
-//       final html = "";
-//       final css = "";
-//       final source = """
-//     <html>
-//       <head></head>
-//       <body>
-//         <script>
-//         $_js
-//         </script>
-//       </body>
-//     </html>
-// """;
-
-      // print(source);
-
-      // _iframe.srcdoc = source;
-      // ignore: undefined_prefixed_name
-      ui.platformViewRegistry.registerViewFactory(_id, (int viewId) {
-        final element = _iframe
-          ..style.border = 'none'
-          ..src = 'scripts/frame.html'
-          ..setAttribute("sandbox", "allow-scripts")
-          ..setAttribute('flex', 'auto')
-          ..height = widget.height.toInt().toString()
-          ..width = widget.width.toInt().toString();
-        _iframe = element;
-        return element;
-      });
+    _loadJsCode(widget.fullCode).then((response) async {
       if (mounted) setState(() => _loaded = true);
       executionSvc.execute(
         '',
@@ -106,7 +82,6 @@ class _FlutterWebPreviewState extends State<FlutterWebPreview> {
         modulesBaseUrl: response.modulesBaseUrl,
       );
     });
-    super.initState();
   }
 
   @override

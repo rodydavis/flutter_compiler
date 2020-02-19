@@ -249,35 +249,6 @@ $styleRef$dartRef  </head>
     return gist;
   }
 
-  Future<Gist> loadGistFromRepo(
-      String username, String projectName, String path, String filename,
-      [String branch = 'master']) async {
-    final response = await _client.get(
-      'https://github.com/$username/$projectName/blob/$branch/$path/$filename.dart',
-    );
-
-    if (response.statusCode == 404) {
-      throw const GistLoaderException(GistLoaderFailureType.contentNotFound);
-    } else if (response.statusCode == 403) {
-      throw const GistLoaderException(GistLoaderFailureType.rateLimitExceeded);
-    } else if (response.statusCode != 200) {
-      throw const GistLoaderException(GistLoaderFailureType.unknown);
-    }
-
-    final mainFile = GistFile(
-      name: 'main.dart',
-      content: response.body,
-    );
-
-    final gist = Gist(files: [mainFile]);
-
-    if (afterLoadHook != null) {
-      afterLoadHook(gist);
-    }
-
-    return gist;
-  }
-
   String _extractContents(String githubResponse) {
     // GitHub's API returns file contents as the "contents" field in a JSON
     // object. The field's value is in base64 encoding, but with line ending

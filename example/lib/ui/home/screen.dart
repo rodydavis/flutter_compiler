@@ -42,6 +42,15 @@ class MyWidget extends StatelessWidget {
 }
 
 """;
+    String gistId = '184e2514914f48ac26a728aa12dcda13';
+    GistLoader().loadGist(gistId).then((gist) {
+      if (mounted)
+        setState(() {
+          if (gist.hasFlutterContent()) {
+            fullCode = gist.files.first.content;
+          }
+        });
+    });
     super.initState();
   }
 
