@@ -28,7 +28,6 @@ class ExecutionServiceIFrame implements ExecutionService {
 
   ExecutionServiceIFrame(this._frame) {
     _frameSrc = _frame.src;
-
     _initListener();
   }
 

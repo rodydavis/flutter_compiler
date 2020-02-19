@@ -7,6 +7,8 @@ import 'dartservices.dart';
 import 'iframe/execution_iframe.dart';
 import 'utils.dart';
 
+ExecutionService executionSvc;
+
 class FlutterWebPreview extends StatefulWidget {
   final String fullCode;
   final num width, height;
@@ -22,8 +24,6 @@ class FlutterWebPreview extends StatefulWidget {
 }
 
 class _FlutterWebPreviewState extends State<FlutterWebPreview> {
- 
-  ExecutionService executionSvc;
   var _iframe = html.IFrameElement();
 
   Future<CompileDDCResponse> _loadJsCode(String fullCode) {
@@ -46,18 +46,21 @@ class _FlutterWebPreviewState extends State<FlutterWebPreview> {
 
   @override
   void initState() {
-    // ignore: undefined_prefixed_name
-    ui.platformViewRegistry.registerViewFactory(_id, (int viewId) {
-      final element = _iframe
-        ..style.border = 'none'
-        ..src = 'scripts/frame.html'
-        ..setAttribute("sandbox", "allow-scripts")
-        ..setAttribute('flex', 'auto')
-        ..height = widget.height.toInt().toString()
-        ..width = widget.width.toInt().toString();
-      _iframe = element;
-      return element;
-    });
+    if (!_loaded) {
+      // ignore: undefined_prefixed_name
+      ui.platformViewRegistry.registerViewFactory(_id, (int viewId) {
+        final element = _iframe
+          ..style.border = 'none'
+          ..src = 'scripts/frame.html'
+          ..setAttribute("sandbox", "allow-scripts")
+          ..setAttribute('flex', 'auto')
+          ..height = widget.height.toInt().toString()
+          ..width = widget.width.toInt().toString();
+        _iframe = element;
+        return element;
+      });
+      executionSvc = ExecutionServiceIFrame(_iframe);
+    }
     refresh();
     super.initState();
   }
@@ -71,7 +74,6 @@ class _FlutterWebPreviewState extends State<FlutterWebPreview> {
   }
 
   void refresh([bool update = false]) {
-    executionSvc = ExecutionServiceIFrame(_iframe);
     _loadJsCode(widget.fullCode).then((response) async {
       if (mounted) setState(() => _loaded = true);
       executionSvc.execute(
