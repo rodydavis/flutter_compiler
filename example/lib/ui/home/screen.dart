@@ -1,5 +1,5 @@
-import 'package:example/ui/common/preview.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_compiler/flutter_compiler.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -48,7 +48,7 @@ class MyWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Flutter Compiler Example')),
+      // appBar: AppBar(title: Text('Flutter Compiler Example')),
       body: LayoutBuilder(
         builder: (context, dimens) => FlutterWebPreview(
           fullCode: fullCode,
