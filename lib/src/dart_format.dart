@@ -15,6 +15,6 @@ Future<String> formatCode(String source) async {
     }
   } catch (e) {
     print(e);
-    return source;
   }
+  return source;
 }
