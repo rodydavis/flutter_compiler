@@ -1,0 +1,159 @@
+<html>
+
+<head></head>
+
+<body>
+    <script>
+        const testKey = '__TESTRESULT__ ';
+
+        function dartPrint(message) {
+            if (message.startsWith(testKey)) {
+                var resultMsg = JSON.parse(message.substring(testKey.length));
+                resultMsg.sender = 'frame';
+                resultMsg.type = 'testResult';
+                parent.postMessage(resultMsg, '*');
+            } else {
+                parent.postMessage(
+                    { 'sender': 'frame', 'type': 'stdout', 'message': message.toString() }, '*');
+            }
+        }
+
+        var _thrownDartMainRunner = false;
+        function dartMainRunner(main, args) {
+            try {
+                main(args);
+            } catch (error) {
+                parent.postMessage(
+                    { 'sender': 'frame', 'type': 'stderr', 'message': "Uncaught exception:\n" + error.message }, '*');
+                _thrownDartMainRunner = true;
+                throw error;
+            }
+        }
+
+        window.onerror = function (message, url, lineNumber, colno, error) {
+            if (!_thrownDartMainRunner) {
+                var errorMessage = '';
+                if (error != null) {
+                    errorMessage = 'Error: ' + error;
+                }
+                parent.postMessage(
+                    { 'sender': 'frame', 'type': 'stderr', 'message': message + errorMessage }, '*');
+            }
+            _thrownDartMainRunner = false;
+        };
+
+        require.config({
+            "baseUrl": "https://storage.googleapis.com/compilation_artifacts/2.8.0-edge.fc3af737c75931908521e9c36358a151408d6084/",
+            "waitSeconds": 60
+        });
+
+        define('dartpad_main', ['dart_sdk', 'flutter_web'], function (dart_sdk, flutter_web) {
+            'use strict';
+            const core = dart_sdk.core;
+            const ui = dart_sdk.ui;
+            const async = dart_sdk.async;
+            const dart = dart_sdk.dart;
+            const dartx = dart_sdk.dartx;
+            const app = flutter_web.src__material__app;
+            const theme_data = flutter_web.src__material__theme_data;
+            const scaffold = flutter_web.src__material__scaffold;
+            const basic = flutter_web.src__widgets__basic;
+            const framework = flutter_web.src__widgets__framework;
+            const text = flutter_web.src__widgets__text;
+            const theme = flutter_web.src__material__theme;
+            const binding = flutter_web.src__widgets__binding;
+            const bootstrap = Object.create(dart.library);
+            const main = Object.create(dart.library);
+            const CT = Object.create(null);
+            bootstrap.main = function main$() {
+                return async.async(dart.void, function* main$() {
+                    yield ui.webOnlyInitializePlatform();
+                    main.main();
+                });
+            };
+            main.MyApp = class MyApp extends framework.StatelessWidget {
+                build(context) {
+                    return new app.MaterialApp.new({ theme: theme_data.ThemeData.dark().copyWith({ scaffoldBackgroundColor: main.darkBlue }), debugShowCheckedModeBanner: false, home: new scaffold.Scaffold.new({ body: new basic.Center.new({ child: new main.MyWidget.new() }) }) });
+                }
+            };
+            (main.MyApp.new = function () {
+                main.MyApp.__proto__.new.call(this);
+                ;
+            }).prototype = main.MyApp.prototype;
+            dart.addTypeTests(main.MyApp);
+            dart.setMethodSignature(main.MyApp, () => ({
+                __proto__: dart.getMethods(main.MyApp.__proto__),
+                build: dart.fnType(framework.Widget, [framework.BuildContext])
+            }));
+            dart.setLibraryUri(main.MyApp, "file:///tmp/dartpadMBCLFJ/main.dart");
+            main.MyWidget = class MyWidget extends framework.StatelessWidget {
+                build(context) {
+                    return new text.Text.new("Hello, World!", { style: theme.Theme.of(context).textTheme.headline4 });
+                }
+            };
+            (main.MyWidget.new = function () {
+                main.MyWidget.__proto__.new.call(this);
+                ;
+            }).prototype = main.MyWidget.prototype;
+            dart.addTypeTests(main.MyWidget);
+            dart.setMethodSignature(main.MyWidget, () => ({
+                __proto__: dart.getMethods(main.MyWidget.__proto__),
+                build: dart.fnType(framework.Widget, [framework.BuildContext])
+            }));
+            dart.setLibraryUri(main.MyWidget, "file:///tmp/dartpadMBCLFJ/main.dart");
+            main.main = function main$0() {
+                binding.runApp(new main.MyApp.new());
+            };
+            dart.defineLazy(main, {
+    /*main.darkBlue*/get darkBlue() {
+                    return new ui.Color.fromARGB(255, 18, 32, 47);
+                }
+            });
+            dart.trackLibraries("dartpad_main", {
+                "file:///tmp/dartpadMBCLFJ/bootstrap.dart": bootstrap,
+                "file:///tmp/dartpadMBCLFJ/main.dart": main
+            }, {
+            }, null);
+            // Exports:
+            return {
+                tmp__dartpadMBCLFJ__bootstrap: bootstrap,
+                tmp__dartpadMBCLFJ__main: main
+            };
+        });
+
+        //# sourceMappingURL=main.dart.js.map
+
+        require(["dartpad_main", "dart_sdk"], function (dartpad_main, dart_sdk) {
+            // SDK initialization.
+            dart_sdk.dart.setStartAsyncSynchronously(true);
+            dart_sdk._isolate_helper.startRootIsolate(() => { }, []);
+
+            // Loads the `dartpad_main` module and runs its bootstrapped main method.
+            //
+            // DDK provides the user's code in a RequireJS module, which exports an
+            // object that looks something like this:
+            //
+            // {
+            //       [random_tokens]__bootstrap: bootstrap,
+            //       [random_tokens]__main: main
+            // }
+            //
+            // The first of those properties holds the compiled code for the bootstrap
+            // Dart file, which the server uses to wrap the user's code and wait on a
+            // call to dart:ui's `webOnlyInitializePlatform` before executing any of it.
+            //
+            // The loop below iterates over the properties of the exported object,
+            // looking for one that ends in "__bootstrap". Once found, it executes the
+            // bootstrapped main method, which calls the user's main method, which
+            // (presumably) calls runApp and starts Flutter's rendering. 
+
+            for (var prop in dartpad_main) {
+                if (prop.endsWith("__bootstrap")) {
+                    dartpad_main[prop].main();
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
