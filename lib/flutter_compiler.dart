@@ -5,3 +5,4 @@ export 'src/iframe/execution.dart';
 export 'src/dartservices.dart';
 export 'src/utils.dart';
 export 'src/preview.dart';
+export 'src/gists/gists.dart';
