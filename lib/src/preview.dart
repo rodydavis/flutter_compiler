@@ -3,7 +3,7 @@ import 'dart:ui' as ui;
 import 'dart:html' as html;
 
 import 'dart_services.dart';
-import 'dartservices.dart';
+import 'api.dart';
 import 'iframe/execution_iframe.dart';
 import 'utils.dart';
 

@@ -1,4 +1,4 @@
-import 'dartservices.dart';
+import 'api.dart';
 import 'package:http/http.dart' as http;
 
 DartservicesApi get dartServices => DartservicesApi(
