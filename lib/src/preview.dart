@@ -81,6 +81,7 @@ class _FlutterWebPreviewState extends State<FlutterWebPreview> {
         '',
         response.result,
         modulesBaseUrl: response.modulesBaseUrl,
+        fresh: !update,
       );
     });
   }

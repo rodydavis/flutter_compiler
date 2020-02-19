@@ -23,6 +23,7 @@ abstract class ExecutionService {
     String css,
     String javaScript, {
     String modulesBaseUrl,
+    bool fresh = true,
   });
 
   void replaceHtml(String html);

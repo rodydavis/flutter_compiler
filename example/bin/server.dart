@@ -10,7 +10,8 @@ Future<void> main() async {
   final handler = const Pipeline()
       .addMiddleware(createCorsHeadersMiddleware())
       .addMiddleware(logRequests())
-      .addHandler(createStaticHandler('build/web', defaultDocument: 'index.html'));
+      .addHandler(
+          createStaticHandler('build/web', defaultDocument: 'index.html'));
 
   final server = await io.serve(handler, 'localhost', 8000)
     ..autoCompress = true;
@@ -23,6 +24,7 @@ Future<void> main() async {
 Middleware createCorsHeadersMiddleware({Map<String, String> corsHeaders}) {
   // By default allow access from everywhere.
   corsHeaders ??= <String, String>{'Access-Control-Allow-Origin': '*'};
+  print("Setting Headers: $corsHeaders");
 
   // Handle preflight (OPTIONS) requests by just adding headers and an empty
   // response.
@@ -38,5 +40,7 @@ Middleware createCorsHeadersMiddleware({Map<String, String> corsHeaders}) {
       response.change(headers: corsHeaders);
 
   return createMiddleware(
-      requestHandler: handleOptionsRequest, responseHandler: addCorsHeaders);
+    requestHandler: handleOptionsRequest,
+    responseHandler: addCorsHeaders,
+  );
 }

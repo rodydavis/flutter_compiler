@@ -39,6 +39,7 @@ class ExecutionServiceIFrame implements ExecutionService {
     String css,
     String javaScript, {
     String modulesBaseUrl,
+    bool fresh = true,
   }) {
     return _reset().whenComplete(() {
       return _send('execute', {
@@ -81,10 +82,14 @@ void _result(bool success, [List<String> messages]) {
 var resultFunction = _result;
 ''';
 
-  static String decorateJavaScript(String javaScript, {String modulesBaseUrl}) {
-    final String postMessagePrint = '''
-const testKey = '$testKey';
-
+  static String decorateJavaScript(String javaScript,
+      {String modulesBaseUrl, bool fresh = false}) {
+    final sb = StringBuffer();
+    if (fresh) {
+      sb.writeln("const testKey = '$testKey';");
+      sb.writeln();
+    }
+    sb.writeln('''
 function dartPrint(message) {
   if (message.startsWith(testKey)) {
     var resultMsg = JSON.parse(message.substring(testKey.length));
@@ -96,7 +101,9 @@ function dartPrint(message) {
       {'sender': 'frame', 'type': 'stdout', 'message': message.toString()}, '*');
   }
 }
-''';
+''');
+
+    final String postMessagePrint = sb.toString();
 
     /// The javascript exception handling for Dartpad catches both errors
     /// directly raised by main() (in which case we might have useful Dart

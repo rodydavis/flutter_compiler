@@ -22,8 +22,9 @@ class DartservicesApi {
   DartservicesApi(http.Client client,
       {core.String rootUrl: "/",
       core.String servicePath: "api/dartservices/v1/"})
-      : _requester =
-            new commons.ApiRequester(client, rootUrl, servicePath, USER_AGENT);
+      : _requester = new commons.ApiRequester(
+            client, rootUrl, servicePath, USER_AGENT,
+            extraHeaders: {'Access-Control-Allow-Origin': '*'});
 
   /// Analyze the given Dart source code and return any resulting analysis
   /// errors or warnings.

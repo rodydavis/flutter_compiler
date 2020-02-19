@@ -4,10 +4,12 @@ packages:
   _discoveryapis_commons:
     dependency: "direct main"
     description:
-      name: _discoveryapis_commons
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.1.8+2"
+      path: "."
+      ref: HEAD
+      resolved-ref: c05818e55933e1af5519d4cf88a81266bfb37542
+      url: "https://github.com/rodydavis/discoveryapis_commons"
+    source: git
+    version: "0.1.9"
   archive:
     dependency: transitive
     description:
@@ -190,7 +192,7 @@ packages:
       name: test_api
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.2.11"
+    version: "0.2.14"
   typed_data:
     dependency: transitive
     description:
