@@ -77,9 +77,11 @@ packages:
   haikunator:
     dependency: "direct main"
     description:
-      path: "third_party/pkg/haikunatordart"
-      relative: true
-    source: path
+      path: "."
+      ref: HEAD
+      resolved-ref: "94bf3e92cf82d0a749d6479fc3bf851f42418cf4"
+      url: "https://github.com/rodydavis/haikunatordart"
+    source: git
     version: "0.1.1"
   http:
     dependency: "direct main"

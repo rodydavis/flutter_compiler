@@ -12,7 +12,8 @@ dependencies:
   http: ^0.12.0+4
   yaml: ^2.2.0
   haikunator:
-    path: third_party/pkg/haikunatordart/
+    git: https://github.com/rodydavis/haikunatordart
+    # path: third_party/pkg/haikunatordart/
 
 dev_dependencies:
   flutter_test:
