@@ -8,12 +8,13 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  _discoveryapis_commons: '>=0.1.0 <0.1.9'
+  _discoveryapis_commons: ">=0.1.0 <0.1.9"
   http: ^0.12.0+4
   yaml: ^2.2.0
   haikunator:
     git: https://github.com/rodydavis/haikunatordart
     # path: third_party/pkg/haikunatordart/
+  dart_style: ^1.3.4
 
 dev_dependencies:
   flutter_test:

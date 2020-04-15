@@ -8,3 +8,4 @@ export 'src/preview.dart';
 export 'src/iframe/decorate.dart';
 export 'src/gists/gists.dart';
 export 'src/dart_format.dart';
+export 'src/dart_compile.dart';

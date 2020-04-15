@@ -1,3 +1,5 @@
+import 'package:dart_style/dart_style.dart';
+
 import 'dart_services.dart';
 import 'dartservices.dart';
 import 'utils.dart';
@@ -18,3 +20,6 @@ Future<String> formatCode(String source) async {
   }
   return source;
 }
+
+
+String formatDart(String code) => DartFormatter().format(code).toString();
