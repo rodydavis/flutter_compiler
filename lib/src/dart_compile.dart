@@ -29,7 +29,7 @@ Future<String> compileDDCOutputHtml(String fullCode) {
       response.result,
       modulesBaseUrl: response.modulesBaseUrl,
     );
-    final _html = getCompiledJsHtml(_js, 'require.js');
+    final _html = getCompiledJsHtml(_js);
     return _html;
   }).catchError((e, st) {
     print('Error: $e -> $st');

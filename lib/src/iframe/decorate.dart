@@ -1,7 +1,9 @@
+import 'require.dart';
+
 const kRequireJs =
     'https://firebasestorage.googleapis.com/v0/b/flutter-web-ide.appspot.com/o/compiler%2Frequire.js?alt=media&token=f1a92547-8ccf-4b83-81ec-15e0b47d50bd';
 
-String getCompiledJsHtml(String js, String requireJs) {
+String getCompiledJsHtml(String js) {
   return """
   <!DOCTYPE html>
 <html>
@@ -10,7 +12,7 @@ String getCompiledJsHtml(String js, String requireJs) {
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
   <meta name="description" content="A new Flutter project.">
   <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Roboto">
-  link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
 
   <!-- iOS meta tags & icons -->
@@ -23,7 +25,9 @@ String getCompiledJsHtml(String js, String requireJs) {
   <title>example</title>
 </head>
 <body>
-  <script src="$requireJs"></script>
+  <script>
+  $kRequireJS
+  </script>
   <script id="compiledJsScript" type="application/javascript">
   $js
   </script>
