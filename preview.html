@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta content="IE=Edge" http-equiv="X-UA-Compatible" />
+    <meta name="description" content="A new Flutter project." />
+
+    <!-- iOS meta tags & icons -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-mobile-web-app-title" content="example" />
+    <link rel="apple-touch-icon" href="/icons/Icon-192.png" />
+
+    <title>example</title>
+  </head>
+  <body>
+    <script src="require.js"></script>
+    <script id="compiledJsScript" type="application/javascript">
+      const testKey = "__TESTRESULT__";
+
+      function dartPrint(message) {
+        if (message.startsWith(testKey)) {
+          var resultMsg = JSON.parse(message.substring(testKey.length));
+          resultMsg.sender = "frame";
+          resultMsg.type = "testResult";
+          parent.postMessage(resultMsg, "*");
+        } else {
+          parent.postMessage(
+            { sender: "frame", type: "stdout", message: message.toString() },
+            "*"
+          );
+        }
+      }
+
+      var _thrownDartMainRunner = false;
+      function dartMainRunner(main, args) {
+        try {
+          main(args);
+        } catch (error) {
+          parent.postMessage(
+            {
+              sender: "frame",
+              type: "stderr",
+              message: "Uncaught exception:\n" + error.message,
+            },
+            "*"
+          );
+          _thrownDartMainRunner = true;
+          throw error;
+        }
+      }
+
+      window.onerror = function (message, url, lineNumber, colno, error) {
+        if (!_thrownDartMainRunner) {
+          var errorMessage = "";
+          if (error != null) {
+            errorMessage = "Error: " + error;
+          }
+          parent.postMessage(
+            {
+              sender: "frame",
+              type: "stderr",
+              message: message + errorMessage,
+            },
+            "*"
+          );
+        }
+        _thrownDartMainRunner = false;
+      };
+
+      require.config({
+        baseUrl:
+          "https://storage.googleapis.com/compilation_artifacts/2.8.0-edge.1210d27678a05e5e69d82766809d816b7aa91830/",
+        waitSeconds: 60,
+      });
+
+      define("dartpad_main", ["dart_sdk", "flutter_web"], function (
+        dart_sdk,
+        flutter_web
+      ) {
+        "use strict";
+        const core = dart_sdk.core;
+        const ui = dart_sdk.ui;
+        const async = dart_sdk.async;
+        const _interceptors = dart_sdk._interceptors;
+        const html = dart_sdk.html;
+        const dart = dart_sdk.dart;
+        const dartx = dart_sdk.dartx;
+        const app = flutter_web.src__material__app;
+        const theme_data = flutter_web.src__material__theme_data;
+        const framework = flutter_web.src__widgets__framework;
+        const scaffold = flutter_web.src__material__scaffold;
+        const app_bar = flutter_web.src__material__app_bar;
+        const text = flutter_web.src__widgets__text;
+        const icon_button = flutter_web.src__material__icon_button;
+        const icon = flutter_web.src__widgets__icon;
+        const icons = flutter_web.src__material__icons;
+        const single_child_scroll_view =
+          flutter_web.src__widgets__single_child_scroll_view;
+        const container = flutter_web.src__widgets__container;
+        const colors = flutter_web.src__material__colors;
+        const basic = flutter_web.src__widgets__basic;
+        const edge_insets = flutter_web.src__painting__edge_insets;
+        const text_field = flutter_web.src__material__text_field;
+        const text_style = flutter_web.src__painting__text_style;
+        const input_decorator = flutter_web.src__material__input_decorator;
+        const input_border = flutter_web.src__material__input_border;
+        const borders = flutter_web.src__painting__borders;
+        const binding = flutter_web.src__widgets__binding;
+        var bootstrap = Object.create(dart.library);
+        var main = Object.create(dart.library);
+        var $setAttribute = dartx.setAttribute;
+        var VoidTovoid = () =>
+          (VoidTovoid = dart.constFn(dart.fnType(dart.void, [])))();
+        var JSArrayOfWidgetL = () =>
+          (JSArrayOfWidgetL = dart.constFn(
+            _interceptors.JSArray$(framework.Widget)
+          ))();
+        var StringLToStringL = () =>
+          (StringLToStringL = dart.constFn(
+            dart.fnType(core.String, [core.String])
+          ))();
+        const CT = Object.create(null);
+        var L0 = "file:///tmp/dartpadGTCVCS/main.dart";
+        dart.defineLazy(
+          CT,
+          {
+            get C0() {
+              return (C0 = dart.const({
+                __proto__: text.Text.prototype,
+                [Widget_key]: null,
+                [Text_textHeightBehavior]: null,
+                [Text_textWidthBasis]: null,
+                [Text_semanticsLabel]: null,
+                [Text_maxLines]: null,
+                [Text_textScaleFactor]: null,
+                [Text_overflow]: null,
+                [Text_softWrap]: null,
+                [Text_locale]: null,
+                [Text_textDirection]: null,
+                [Text_textAlign]: null,
+                [Text_strutStyle]: null,
+                [Text_style]: null,
+                [Text_textSpan]: null,
+                [Text_data]: "Download Example",
+              }));
+            },
+            get C1() {
+              return (C1 = dart.const({
+                __proto__: edge_insets.EdgeInsets.prototype,
+                [EdgeInsets_bottom]: 8,
+                [EdgeInsets_right]: 8,
+                [EdgeInsets_top]: 8,
+                [EdgeInsets_left]: 8,
+              }));
+            },
+            get C5() {
+              return (C5 = dart.const({
+                __proto__: borders.BorderStyle.prototype,
+                [_name]: "BorderStyle.none",
+                index: 0,
+              }));
+            },
+            get C6() {
+              return (C6 = dart.const({
+                __proto__: ui.Color.prototype,
+                [Color_value]: 4278190080.0,
+              }));
+            },
+            get C4() {
+              return (C4 = dart.const({
+                __proto__: borders.BorderSide.prototype,
+                [BorderSide_style]: C5 || CT.C5,
+                [BorderSide_width]: 0,
+                [BorderSide_color]: C6 || CT.C6,
+              }));
+            },
+            get C3() {
+              return (C3 = dart.const({
+                __proto__: input_border._NoInputBorder.prototype,
+                [InputBorder_borderSide]: C4 || CT.C4,
+              }));
+            },
+            get C7() {
+              return (C7 = dart.const({
+                __proto__: input_decorator.FloatingLabelBehavior.prototype,
+                [_name$]: "FloatingLabelBehavior.auto",
+                index: 1,
+              }));
+            },
+            get C2() {
+              return (C2 = dart.const({
+                __proto__: input_decorator.InputDecoration.prototype,
+                [InputDecoration_alignLabelWithHint]: null,
+                [InputDecoration_semanticCounterText]: null,
+                [InputDecoration_enabled]: true,
+                [InputDecoration_border]: C3 || CT.C3,
+                [InputDecoration_enabledBorder]: null,
+                [InputDecoration_disabledBorder]: null,
+                [InputDecoration_focusedErrorBorder]: null,
+                [InputDecoration_focusedBorder]: null,
+                [InputDecoration_errorBorder]: null,
+                [InputDecoration_hoverColor]: null,
+                [InputDecoration_focusColor]: null,
+                [InputDecoration_fillColor]: null,
+                [InputDecoration_filled]: null,
+                [InputDecoration_counterStyle]: null,
+                [InputDecoration_counter]: null,
+                [InputDecoration_counterText]: null,
+                [InputDecoration_suffixIconConstraints]: null,
+                [InputDecoration_suffixStyle]: null,
+                [InputDecoration_suffixText]: null,
+                [InputDecoration_suffix]: null,
+                [InputDecoration_suffixIcon]: null,
+                [InputDecoration_prefixStyle]: null,
+                [InputDecoration_prefixText]: null,
+                [InputDecoration_prefix]: null,
+                [InputDecoration_prefixIconConstraints]: null,
+                [InputDecoration_prefixIcon]: null,
+                [InputDecoration_isCollapsed]: false,
+                [InputDecoration_contentPadding]: null,
+                [InputDecoration_isDense]: null,
+                [InputDecoration_floatingLabelBehavior]: C7 || CT.C7,
+                [InputDecoration_hasFloatingPlaceholder]: true,
+                [InputDecoration_errorMaxLines]: null,
+                [InputDecoration_errorStyle]: null,
+                [InputDecoration_errorText]: null,
+                [InputDecoration_hintMaxLines]: null,
+                [InputDecoration_hintStyle]: null,
+                [InputDecoration_hintText]: "Enter Text Here",
+                [InputDecoration_helperMaxLines]: null,
+                [InputDecoration_helperStyle]: null,
+                [InputDecoration_helperText]: null,
+                [InputDecoration_labelStyle]: null,
+                [InputDecoration_labelText]: null,
+                [InputDecoration_icon]: null,
+              }));
+            },
+          },
+          false
+        );
+        bootstrap.main = function main$() {
+          return async.async(dart.void, function* main$() {
+            yield ui.webOnlyInitializePlatform();
+            main.main();
+          });
+        };
+        main.MyApp = class MyApp extends framework.StatelessWidget {
+          build(context) {
+            return new app.MaterialApp.new({
+              debugShowCheckedModeBanner: false,
+              title: "Flutter Downloader Example",
+              theme: theme_data.ThemeData.light(),
+              darkTheme: theme_data.ThemeData.dark(),
+              home: new main.FileDownloadExample.new(),
+            });
+          }
+        };
+        (main.MyApp.new = function () {
+          main.MyApp.__proto__.new.call(this);
+        }).prototype = main.MyApp.prototype;
+        dart.addTypeTests(main.MyApp);
+        dart.addTypeCaches(main.MyApp);
+        dart.setMethodSignature(main.MyApp, () => ({
+          __proto__: dart.getMethods(main.MyApp.__proto__),
+          build: dart.fnType(framework.Widget, [framework.BuildContext]),
+        }));
+        dart.setLibraryUri(main.MyApp, L0);
+        main.FileDownloadExample = class FileDownloadExample extends framework.StatefulWidget {
+          createState() {
+            return new main._FileDownloadExampleState.new();
+          }
+        };
+        (main.FileDownloadExample.new = function () {
+          main.FileDownloadExample.__proto__.new.call(this);
+        }).prototype = main.FileDownloadExample.prototype;
+        dart.addTypeTests(main.FileDownloadExample);
+        dart.addTypeCaches(main.FileDownloadExample);
+        dart.setMethodSignature(main.FileDownloadExample, () => ({
+          __proto__: dart.getMethods(main.FileDownloadExample.__proto__),
+          createState: dart.fnType(main._FileDownloadExampleState, []),
+        }));
+        dart.setLibraryUri(main.FileDownloadExample, L0);
+        var _data = dart.privateName(main, "_data");
+        var Widget_key = dart.privateName(framework, "Widget.key");
+        var Text_textHeightBehavior = dart.privateName(
+          text,
+          "Text.textHeightBehavior"
+        );
+        var Text_textWidthBasis = dart.privateName(text, "Text.textWidthBasis");
+        var Text_semanticsLabel = dart.privateName(text, "Text.semanticsLabel");
+        var Text_maxLines = dart.privateName(text, "Text.maxLines");
+        var Text_textScaleFactor = dart.privateName(
+          text,
+          "Text.textScaleFactor"
+        );
+        var Text_overflow = dart.privateName(text, "Text.overflow");
+        var Text_softWrap = dart.privateName(text, "Text.softWrap");
+        var Text_locale = dart.privateName(text, "Text.locale");
+        var Text_textDirection = dart.privateName(text, "Text.textDirection");
+        var Text_textAlign = dart.privateName(text, "Text.textAlign");
+        var Text_strutStyle = dart.privateName(text, "Text.strutStyle");
+        var Text_style = dart.privateName(text, "Text.style");
+        var Text_textSpan = dart.privateName(text, "Text.textSpan");
+        var Text_data = dart.privateName(text, "Text.data");
+        var C0;
+        var EdgeInsets_bottom = dart.privateName(
+          edge_insets,
+          "EdgeInsets.bottom"
+        );
+        var EdgeInsets_right = dart.privateName(
+          edge_insets,
+          "EdgeInsets.right"
+        );
+        var EdgeInsets_top = dart.privateName(edge_insets, "EdgeInsets.top");
+        var EdgeInsets_left = dart.privateName(edge_insets, "EdgeInsets.left");
+        var C1;
+        var InputDecoration_alignLabelWithHint = dart.privateName(
+          input_decorator,
+          "InputDecoration.alignLabelWithHint"
+        );
+        var InputDecoration_semanticCounterText = dart.privateName(
+          input_decorator,
+          "InputDecoration.semanticCounterText"
+        );
+        var InputDecoration_enabled = dart.privateName(
+          input_decorator,
+          "InputDecoration.enabled"
+        );
+        var _name = dart.privateName(borders, "_name");
+        var C5;
+        var BorderSide_style = dart.privateName(borders, "BorderSide.style");
+        var BorderSide_width = dart.privateName(borders, "BorderSide.width");
+        var Color_value = dart.privateName(ui, "Color.value");
+        var C6;
+        var BorderSide_color = dart.privateName(borders, "BorderSide.color");
+        var C4;
+        var InputBorder_borderSide = dart.privateName(
+          input_border,
+          "InputBorder.borderSide"
+        );
+        var C3;
+        var InputDecoration_border = dart.privateName(
+          input_decorator,
+          "InputDecoration.border"
+        );
+        var InputDecoration_enabledBorder = dart.privateName(
+          input_decorator,
+          "InputDecoration.enabledBorder"
+        );
+        var InputDecoration_disabledBorder = dart.privateName(
+          input_decorator,
+          "InputDecoration.disabledBorder"
+        );
+        var InputDecoration_focusedErrorBorder = dart.privateName(
+          input_decorator,
+          "InputDecoration.focusedErrorBorder"
+        );
+        var InputDecoration_focusedBorder = dart.privateName(
+          input_decorator,
+          "InputDecoration.focusedBorder"
+        );
+        var InputDecoration_errorBorder = dart.privateName(
+          input_decorator,
+          "InputDecoration.errorBorder"
+        );
+        var InputDecoration_hoverColor = dart.privateName(
+          input_decorator,
+          "InputDecoration.hoverColor"
+        );
+        var InputDecoration_focusColor = dart.privateName(
+          input_decorator,
+          "InputDecoration.focusColor"
+        );
+        var InputDecoration_fillColor = dart.privateName(
+          input_decorator,
+          "InputDecoration.fillColor"
+        );
+        var InputDecoration_filled = dart.privateName(
+          input_decorator,
+          "InputDecoration.filled"
+        );
+        var InputDecoration_counterStyle = dart.privateName(
+          input_decorator,
+          "InputDecoration.counterStyle"
+        );
+        var InputDecoration_counter = dart.privateName(
+          input_decorator,
+          "InputDecoration.counter"
+        );
+        var InputDecoration_counterText = dart.privateName(
+          input_decorator,
+          "InputDecoration.counterText"
+        );
+        var InputDecoration_suffixIconConstraints = dart.privateName(
+          input_decorator,
+          "InputDecoration.suffixIconConstraints"
+        );
+        var InputDecoration_suffixStyle = dart.privateName(
+          input_decorator,
+          "InputDecoration.suffixStyle"
+        );
+        var InputDecoration_suffixText = dart.privateName(
+          input_decorator,
+          "InputDecoration.suffixText"
+        );
+        var InputDecoration_suffix = dart.privateName(
+          input_decorator,
+          "InputDecoration.suffix"
+        );
+        var InputDecoration_suffixIcon = dart.privateName(
+          input_decorator,
+          "InputDecoration.suffixIcon"
+        );
+        var InputDecoration_prefixStyle = dart.privateName(
+          input_decorator,
+          "InputDecoration.prefixStyle"
+        );
+        var InputDecoration_prefixText = dart.privateName(
+          input_decorator,
+          "InputDecoration.prefixText"
+        );
+        var InputDecoration_prefix = dart.privateName(
+          input_decorator,
+          "InputDecoration.prefix"
+        );
+        var InputDecoration_prefixIconConstraints = dart.privateName(
+          input_decorator,
+          "InputDecoration.prefixIconConstraints"
+        );
+        var InputDecoration_prefixIcon = dart.privateName(
+          input_decorator,
+          "InputDecoration.prefixIcon"
+        );
+        var InputDecoration_isCollapsed = dart.privateName(
+          input_decorator,
+          "InputDecoration.isCollapsed"
+        );
+        var InputDecoration_contentPadding = dart.privateName(
+          input_decorator,
+          "InputDecoration.contentPadding"
+        );
+        var InputDecoration_isDense = dart.privateName(
+          input_decorator,
+          "InputDecoration.isDense"
+        );
+        var _name$ = dart.privateName(input_decorator, "_name");
+        var C7;
+        var InputDecoration_floatingLabelBehavior = dart.privateName(
+          input_decorator,
+          "InputDecoration.floatingLabelBehavior"
+        );
+        var InputDecoration_hasFloatingPlaceholder = dart.privateName(
+          input_decorator,
+          "InputDecoration.hasFloatingPlaceholder"
+        );
+        var InputDecoration_errorMaxLines = dart.privateName(
+          input_decorator,
+          "InputDecoration.errorMaxLines"
+        );
+        var InputDecoration_errorStyle = dart.privateName(
+          input_decorator,
+          "InputDecoration.errorStyle"
+        );
+        var InputDecoration_errorText = dart.privateName(
+          input_decorator,
+          "InputDecoration.errorText"
+        );
+        var InputDecoration_hintMaxLines = dart.privateName(
+          input_decorator,
+          "InputDecoration.hintMaxLines"
+        );
+        var InputDecoration_hintStyle = dart.privateName(
+          input_decorator,
+          "InputDecoration.hintStyle"
+        );
+        var InputDecoration_hintText = dart.privateName(
+          input_decorator,
+          "InputDecoration.hintText"
+        );
+        var InputDecoration_helperMaxLines = dart.privateName(
+          input_decorator,
+          "InputDecoration.helperMaxLines"
+        );
+        var InputDecoration_helperStyle = dart.privateName(
+          input_decorator,
+          "InputDecoration.helperStyle"
+        );
+        var InputDecoration_helperText = dart.privateName(
+          input_decorator,
+          "InputDecoration.helperText"
+        );
+        var InputDecoration_labelStyle = dart.privateName(
+          input_decorator,
+          "InputDecoration.labelStyle"
+        );
+        var InputDecoration_labelText = dart.privateName(
+          input_decorator,
+          "InputDecoration.labelText"
+        );
+        var InputDecoration_icon = dart.privateName(
+          input_decorator,
+          "InputDecoration.icon"
+        );
+        var C2;
+        main._FileDownloadExampleState = class _FileDownloadExampleState extends framework.State$(
+          main.FileDownloadExample
+        ) {
+          build(context) {
+            return new scaffold.Scaffold.new({
+              appBar: new app_bar.AppBar.new({
+                title: C0 || CT.C0,
+                actions: JSArrayOfWidgetL().of([
+                  new icon_button.IconButton.new({
+                    tooltip: "Download File",
+                    icon: new icon.Icon.new(icons.Icons.cloud_download),
+                    onPressed: dart.fn(
+                      () =>
+                        main.downloadFile(
+                          this[_data],
+                          "file_download_example.txt"
+                        ),
+                      VoidTovoid()
+                    ),
+                  }),
+                ]),
+              }),
+              body: new single_child_scroll_view.SingleChildScrollView.new({
+                child: new container.Container.new({
+                  color: colors.Colors.white,
+                  child: new basic.Padding.new({
+                    padding: C1 || CT.C1,
+                    child: new text_field.TextField.new({
+                      style: new text_style.TextStyle.new({
+                        color: colors.Colors.black,
+                      }),
+                      decoration: C2 || CT.C2,
+                      maxLines: null,
+                      onChanged: dart.fn(
+                        (val) => (this[_data] = val),
+                        StringLToStringL()
+                      ),
+                      textAlign: ui.TextAlign.center,
+                    }),
+                  }),
+                }),
+              }),
+            });
+          }
+        };
+        (main._FileDownloadExampleState.new = function () {
+          this[_data] = "";
+          main._FileDownloadExampleState.__proto__.new.call(this);
+        }).prototype = main._FileDownloadExampleState.prototype;
+        dart.addTypeTests(main._FileDownloadExampleState);
+        dart.addTypeCaches(main._FileDownloadExampleState);
+        dart.setMethodSignature(main._FileDownloadExampleState, () => ({
+          __proto__: dart.getMethods(main._FileDownloadExampleState.__proto__),
+          build: dart.fnType(framework.Widget, [framework.BuildContext]),
+        }));
+        dart.setLibraryUri(main._FileDownloadExampleState, L0);
+        dart.setFieldSignature(main._FileDownloadExampleState, () => ({
+          __proto__: dart.getFields(main._FileDownloadExampleState.__proto__),
+          [_data]: dart.fieldType(core.String),
+        }));
+        main.main = function main$0() {
+          return binding.runApp(new main.MyApp.new());
+        };
+        main.downloadFile = function downloadFile(data, filename) {
+          let t0;
+          let encodedFileContents = core.Uri.encodeComponent(data);
+          t0 = html.AnchorElement.new({
+            href:
+              "data:text/plain;charset=utf-8," + dart.str(encodedFileContents),
+          });
+          t0[$setAttribute]("download", filename);
+          t0.click();
+          t0;
+        };
+        dart.trackLibraries(
+          "dartpad_main",
+          {
+            "file:///tmp/dartpadGTCVCS/bootstrap.dart": bootstrap,
+            "file:///tmp/dartpadGTCVCS/main.dart": main,
+          },
+          {},
+          null
+        );
+        // Exports:
+        return {
+          tmp__dartpadGTCVCS__bootstrap: bootstrap,
+          tmp__dartpadGTCVCS__main: main,
+        };
+      });
+
+      //# sourceMappingURL=main.dart.js.map
+
+      require(["dartpad_main", "dart_sdk"], function (dartpad_main, dart_sdk) {
+        // SDK initialization.
+        dart_sdk.dart.setStartAsyncSynchronously(true);
+        dart_sdk._isolate_helper.startRootIsolate(() => {}, []);
+
+        // Loads the `dartpad_main` module and runs its bootstrapped main method.
+        //
+        // DDK provides the user's code in a RequireJS module, which exports an
+        // object that looks something like this:
+        //
+        // {
+        //       [random_tokens]__bootstrap: bootstrap,
+        //       [random_tokens]__main: main
+        // }
+        //
+        // The first of those properties holds the compiled code for the bootstrap
+        // Dart file, which the server uses to wrap the user's code and wait on a
+        // call to dart:ui's `webOnlyInitializePlatform` before executing any of it.
+        //
+        // The loop below iterates over the properties of the exported object,
+        // looking for one that ends in "__bootstrap". Once found, it executes the
+        // bootstrapped main method, which calls the user's main method, which
+        // (presumably) calls runApp and starts Flutter's rendering.
+
+        for (var prop in dartpad_main) {
+          if (prop.endsWith("__bootstrap")) {
+            dartpad_main[prop].main();
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

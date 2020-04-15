@@ -44,12 +44,17 @@ class _FlutterWebPreviewState extends State<FlutterWebPreview> {
   bool _loaded = false;
   String _id = 'preview';
 
+  static final _iframeElementMap = Map<Key, html.IFrameElement>();
+
   @override
   void initState() {
     if (!_loaded) {
       // ignore: undefined_prefixed_name
       ui.platformViewRegistry.registerViewFactory(_id, (int viewId) {
-        final element = _iframe
+        if (_iframeElementMap[widget.key] == null) {
+          _iframeElementMap[widget.key] = html.IFrameElement();
+        }
+        final element = _iframeElementMap[widget.key]
           ..style.border = 'none'
           ..src = 'scripts/frame.html'
           ..setAttribute("sandbox", "allow-scripts")
