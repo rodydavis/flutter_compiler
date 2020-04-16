@@ -5,3 +5,4 @@ export 'src/utils.dart';
 export 'src/gists/gists.dart';
 export 'src/dart_format.dart';
 export 'src/dart_compile.dart';
+export 'src/dart_utils.dart';
