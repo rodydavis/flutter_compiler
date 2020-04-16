@@ -63,6 +63,15 @@ class DartUtils {
   }
 }
 
+class DartImport {
+  final String name;
+  final int index;
+  DartImport({
+    @required this.index,
+    @required this.name,
+  });
+}
+
 class DartClass {
   final int index;
   final String name;
